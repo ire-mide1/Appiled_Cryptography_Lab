@@ -323,4 +323,3 @@ All nine items from the first draft are now settled. Items 1–3 were answered b
 | D8 | Folder name | The project folder name "Crpytography" is left as is. |
 | D9 | Test discovery | Tests live in `tests/` and run with `python -m unittest discover -s tests`, documented in the README. |
 
-No open decisions remain in this design.

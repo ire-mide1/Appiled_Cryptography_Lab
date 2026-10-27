@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Cipher output and temporary files
+*.enc
+*.dec
+*.tmp
+test_output/
+*.out
