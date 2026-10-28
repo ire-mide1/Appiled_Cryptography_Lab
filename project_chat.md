@@ -245,3 +245,22 @@ Built stage 2 in the design's build order and stopped when the app ran.
 - **Scripted check of the real window** (message boxes patched out): a 300 KB round trip matched byte for byte; the `.enc`/`.dec` pre-fill, manual-edit handling, overwrite prompt Yes and No, the same-file, empty-input and missing-input errors, an empty file, quoted paths, and closing mid-run all behaved as designed. Closing during a 4 MB run left no output or temp file.
 - **Launch:** `python app.py` stayed open for 3 seconds with no error. Claude could not see the window, so the file dialogs, real message boxes, layout and DPI scaling were not checked visually. They fall under the manual checklist in Design_v1.md.
 - **Speed:** unchanged, about 5.3 s each way for 5 MB.
+
+User
+----
+
+```text
+alright, why is the decrypted file having a .dec extension? i dont want it. i want it to have the original file back with its normal extension
+```
+
+Claude
+------
+
+(Edited crypto_app/jobs.py and crypto_app/tests/test_jobs.py.)
+
+Changed the decrypt output name so the original name comes back.
+- **jobs.py:** decrypt now strips a trailing `.enc` (case-insensitive) and no longer appends `.dec`: `photo.png.enc` → `photo.png`, `notes.txt.ENC` → `notes.txt`. If the input does not end in `.enc` (or the name is only `.enc`), `.dec` is still appended so the output never equals the input.
+- **Tests:** updated `test_decrypt_strips_enc` to expect `notes.txt` and `photo.png`. The full suite ran 63 tests, all OK, with 1 skipped.
+- **Overwrite:** if the original file is still in the same folder, the existing overwrite prompt asks before replacing it.
+- **Not updated:** Design_v1.md (D3), Requirements_V2.md (line 83) and the earlier D3 entry above still describe the old `.dec` behaviour, so they now disagree with the code.
+- **Not run:** the GUI was not opened to check this.
