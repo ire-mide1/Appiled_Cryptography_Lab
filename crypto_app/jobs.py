@@ -25,11 +25,14 @@ def clean_path(text):
 
 
 def default_output_name(input_path, decrypt):
-    """Suggested output path: encrypt appends .enc; decrypt swaps a trailing .enc for .dec."""
+    """Suggested output path: encrypt appends .enc; decrypt strips a trailing .enc to restore the original name.
+
+    If the input doesn't end in .enc, .dec is appended so the output never equals the input.
+    """
     if not decrypt:
         return input_path + ".enc"
     if input_path.lower().endswith(".enc") and len(os.path.basename(input_path)) > len(".enc"):
-        return input_path[:-len(".enc")] + ".dec"
+        return input_path[:-len(".enc")]
     return input_path + ".dec"
 
 

@@ -52,8 +52,8 @@ class DefaultOutputName(unittest.TestCase):
         self.assertEqual(jobs.default_output_name("notes.txt", False), "notes.txt.enc")
 
     def test_decrypt_strips_enc(self):
-        self.assertEqual(jobs.default_output_name("notes.txt.enc", True), "notes.txt.dec")
-        self.assertEqual(jobs.default_output_name("NOTES.ENC", True), "NOTES.dec")
+        self.assertEqual(jobs.default_output_name("notes.txt.enc", True), "notes.txt")
+        self.assertEqual(jobs.default_output_name("photo.png.ENC", True), "photo.png")
 
     def test_decrypt_without_enc_appends_dec(self):
         self.assertEqual(jobs.default_output_name("notes.txt", True), "notes.txt.dec")
